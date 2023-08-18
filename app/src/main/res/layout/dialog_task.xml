@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:padding="18dp"
+    android:background="@color/background_disabled"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/hint_line"
+        android:hint="@string/dialoge_hint"
+        android:textColorHint="@color/black"
+        android:textColor="@color/hint_line" />
+
+
+    <RadioGroup
+        android:id="@+id/rgCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbBusiness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/business"
+            android:checked="true"
+            android:text="@string/business_text"
+            android:textColor="@color/hint_line" />
+        <RadioButton
+            android:id="@+id/rbPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#FF5733"
+            android:text="@string/personal_text"
+            android:textColor="@color/hint_line" />
+        <RadioButton
+            android:id="@+id/rbOther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/other"
+            android:text="@string/others_text"
+            android:textColor="@color/hint_line" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnAddTask"
+        android:backgroundTint="@color/other"
+        android:text="@string/button_addTask"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    
+</LinearLayout>

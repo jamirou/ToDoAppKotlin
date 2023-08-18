@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ToDoApp</string>
+    <string name="titletext">To do app⚡</string>
+    <string name="category">task category:</string>
+    <string name="todo_tasks">Tasks</string>
+    <string name="dialoge_hint">Click Here!</string>
+    <string name="business_text">Business</string>
+    <string name="personal_text">personal</string>
+    <string name="others_text">others</string>
+    <string name="button_to_add_task">Button to add task</string>
+    <string name="button_addTask">Add Task</string>
+</resources>
