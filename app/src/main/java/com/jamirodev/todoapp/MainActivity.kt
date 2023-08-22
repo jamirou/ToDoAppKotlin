@@ -1,5 +1,6 @@
 package com.jamirodev.todoapp
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         val rgCategories: RadioGroup = dialog.findViewById(R.id.rgCategories)
 
         btnAddTask.setOnClickListener {
-            val currentTask = etTask.text.toString()
+            val currentTask = etTask.text.toString().trim()
             if (currentTask.isNotEmpty()) {
                 val selectedId = rgCategories.checkedRadioButtonId
                 val selectedRadioButton: RadioButton = rgCategories.findViewById(selectedId)
@@ -62,9 +63,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 tasks.add(Task(currentTask, currentCategory))
                 updateTasks()
-                dialog.hide()
+                dialog.dismiss()
             }
-
         }
 
         dialog.show()
@@ -77,16 +77,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        categoriesAdapter = CategoriesAdapter(categories) {updateCategories(it)}
+        categoriesAdapter = CategoriesAdapter(categories) { updateCategories(it) }
         rvCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvCategory.adapter = categoriesAdapter
 
-        tasksAdapter = TasksAdapter(tasks) { onItemSelected(it) }
+        tasksAdapter = TasksAdapter(tasks, { onItemSelected(it) }, { onDeleteTask(it) })
         rvTasks.layoutManager = LinearLayoutManager(this)
         rvTasks.adapter = tasksAdapter
     }
 
-    private fun onItemSelected(position:Int) {
+    private fun onItemSelected(position: Int) {
         tasks[position].isSelected = !tasks[position].isSelected
         updateTasks()
     }
@@ -97,11 +97,18 @@ class MainActivity : AppCompatActivity() {
         updateTasks()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateTasks() {
         val selectedCategories: List<TaskCategory> = categories.filter { it.isSelected }
         val newTasks = tasks.filter { selectedCategories.contains(it.category) }
-        tasksAdapter.tasks = newTasks
+        tasks.clear() // Clear the existing tasks
+        tasks.addAll(newTasks) // Add all new tasks
         tasksAdapter.notifyDataSetChanged()
     }
 
+    private fun onDeleteTask(position: Int) {
+        tasks.removeAt(position)
+        tasksAdapter.notifyItemRemoved(position)
+        updateTasks()
+    }
 }

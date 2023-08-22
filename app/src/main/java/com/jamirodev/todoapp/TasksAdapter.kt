@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class TasksAdapter(var tasks: List<Task>, private val onTaskSelected: (Int) -> Unit) :
+class TasksAdapter(var tasks: MutableList<Task>, private val onTaskSelected: (Int) -> Unit, private val onDeleteTask: (Int) -> Unit) :
     RecyclerView.Adapter<TasksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
@@ -17,7 +17,11 @@ class TasksAdapter(var tasks: List<Task>, private val onTaskSelected: (Int) -> U
 
     override fun onBindViewHolder(holder: TasksViewHolder, position: Int) {
         holder.render(tasks[position])
-        holder.itemView.setOnClickListener{ onTaskSelected(position)}
+        holder.itemView.setOnClickListener { onTaskSelected(position) }
+        holder.itemView.setOnLongClickListener {
+            onDeleteTask(position)
+            true // Consume the long click event
+        }
     }
 
 }
